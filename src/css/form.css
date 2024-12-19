@@ -1,0 +1,28 @@
+form{
+    background-color: burlywood;
+
+}
+
+#submitButton{
+    width: 10vw;
+    height: 6vh;
+
+}
+#nameInput,#phoneInput,#numRoomsInput,#emailInput{
+    width: 11vw;
+    height: 7vh;
+}
+#adressInput{
+    width: 13vw;
+    height: 8vh;
+}
+.error{
+    width: 11vw;
+    height: 7vh;
+ color: red;
+}
+
+#internet, #kitchen, #coffeeMachine {
+    width: 2vw;
+    height: 2vh;
+}
