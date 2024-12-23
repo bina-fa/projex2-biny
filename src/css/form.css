@@ -1,8 +1,17 @@
 form{
-    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f0f8ff; /* רקע תכלת בהיר */
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+input{
+    margin-bottom: 20px;
 
 }
-
 #submitButton{
     width: 10vw;
     height: 6vh;

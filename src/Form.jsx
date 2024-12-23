@@ -1,14 +1,45 @@
 import { useForm } from "react-hook-form";
 import "./css/form.css"
+import { useState } from "react";
 
+
+  
 function Form() {
 
-    let { register, reset, handleSubmit, formState: { errors, isValid }} = useForm();
+
+
+   let possibleAdresses = []
+   let { register, reset, handleSubmit, formState: { errors, isValid }} = useForm();
+   let [ query, setQuery ] = useState([]);
+
+
+
+
+  
+
+   
 
  function save(){
     reset()
  }
+ 
+ function ChangeAdress(e){
+   console.log("go in on change")
+   setQuery(e.target.value);
+   fetch( `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5` )
+   .then( 
+       (res) =>{res = res.json()
+         console.log(res)
+         console.log(res)
 
+         // for (let i = 0; i < res.length; i++) {
+         //    possibleAdresses + res[i] ;
+            
+         // }
+         // console.log( "possibleAdresses" + possibleAdresses[0])
+       })
+        
+ }
     
     return ( 
          <>
@@ -18,7 +49,7 @@ function Form() {
           {errors.name && <div className="error">{errors.name.message} </div>}
 
 
-       <input type="text" {...register ( "adress", { required : 'שדה כתובת הוא שדה חובה'  })} id="adressInput" placeholder="adress"></input> 
+       <input type="text" {...register ( "adress", { required : 'שדה כתובת הוא שדה חובה'  })}onChange={ChangeAdress}  id ="adressInput" placeholder="adress"></input> 
        {errors.adress && <div className="error">{errors.adress.message} </div>}
 
        <input type="phone" {...register ( "phone", { required :'שדה טלפון הוא שדה חובה'  })} id ="phoneInput" placeholder="phone"></input> 
