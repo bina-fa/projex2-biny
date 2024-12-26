@@ -1,23 +1,24 @@
-import { useForm } from "react-hook-form";
-import "./css/form.css"
-import { useState } from "react";
 
-  
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import Map from "./Map";
+import "./css/form.css"
+
 function Form() {
 
 
    let { register, reset, handleSubmit, formState: { errors, isValid }} = useForm();
    let [ query, setQuery ] = useState();
    let [ data, setData] = useState([{}]);
-
+   let [ lat, setLat] = useState(51.505);
+   let [lon, setLon] = useState(-0.09);
+   
  function save(){
     reset()
  }
-  // function updateMap(){
-  //   <Map/>
-  // }
  
-    const ChangeAdress = async(e) => {
+  const ChangeAdress = async(e) => {
    console.log("go in on change");
    console.log( e.target.value );
    setQuery(e.target.value);
@@ -35,10 +36,13 @@ function Form() {
   //      })
      
        const response = await fetch( ` https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5`)
-       const res = await response.json()
+       const res = await response.json();
        console.log("res: " , res);
-       setData(res);
-       console.log("data : " , data);
+       await setData(res);
+       await setLat(data.lat0);
+       await setLon(data.lon)
+       console.log("data : " , data);// משהו השתבש
+      //  <Map lat={data.lat} lon={data.lon}></Map>
        
  }
   
@@ -46,6 +50,7 @@ function Form() {
     return ( 
          <>
     <form noValidate onSubmit={handleSubmit(save)}>
+
        <input type="text"{...register ( "name", { required : 'שדה שם הוא שדה חובה'})} id="nameInput" placeholder="enter name"></input> 
           
           {errors.name && <div className="error">{errors.name.message} </div>}
@@ -62,15 +67,19 @@ function Form() {
        {errors.adress && <div className="error">{errors.adress.message} </div>}
 
 
-       <datalist id = "options" >
+       <datalist id = "options">
         {data.map(
-          (item) => ( 
-            <option key={item.osm_id} >
+          (item, index) => ( 
+            <option key={index} 
+            value = {item.display_name}
+            //  onClick={ updateMap ((item)=>(
+            //   setPoints([item.lat, item.lon])
+            // ))}
+            >
               {item.display_name}
               </option>
         ) )}
        </datalist>
-       {/* onClick={ <Map lat ={item.lat} lon = {item.lon}/> } */}
 
        <input type="phone" {...register ( "phone", { required :'שדה טלפון הוא שדה חובה'  })} id ="phoneInput" placeholder="phone"></input> 
        {errors.phone && <div className="error">{errors.phone.message} </div>}
@@ -95,18 +104,20 @@ function Form() {
        <label htmlFor="coffeeMachine"> {"Need a coffe machine?"}</label>
               <input type="Checkbox"name="coffeeMachine" id="coffeeMachine"/>
 
-       <input type="number" id="numRooms" defaultValue = {2} placeholder="num rooms"></input> 
+       <input type="number" id="numRooms"  defaultValue = {2} placeholder="num rooms"></input> 
        
        <input type="number" id="distance"  placeholder="distance"></input> 
 
-       <input id = "status" value={"מחפש"}></input>
+       <input id = "status" defaultValue = {"מחפש"}></input>
 
        <input type="submit" id="submitButton" value={"save"}/>
 
     </form>
+    <Map lat={lat} lon={lon}></Map>
 
     </>
     );
 }
 
 export default Form;
+// 0556790770

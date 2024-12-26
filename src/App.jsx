@@ -1,13 +1,18 @@
 import { useState } from 'react'
 
-import './css/App.css'
+import Map from './Map'
 import Form from './Form'
+import './css/App.css'
+
 
 function App() {
 
   return (
     <>
-      <Form></Form>
+      <Form>
+      </Form>
+      {/* <Map lat={0.09} lon={52000.32}></Map> */}
+   
     </>
   )
 }
