@@ -7,7 +7,6 @@ import "./css/form.css"
 function Form() {
 
    let { register, reset, handleSubmit, formState: { errors, isValid }} = useForm();
-   let [ query, setQuery ] = useState();
    let [ data, setData] = useState([{}]);
    let [ lat, setLat] = useState(31.80461649366907);
    let [ lon, setLon] = useState(34.66327724630701);
@@ -18,28 +17,20 @@ function Form() {
 
 
   const ChangeAdress = async(e) => {
-   console.log("go in on change");
    const {value} = e.target;
    console.log( value );
-   setQuery(value);
 
        const response = await fetch( `https://nominatim.openstreetmap.org/search?format=json&q=${value}&limit=5 `)
        const res = await response.json();
        console.log("res: " , res);
        setData(res);
-      //  setLat(result.lat);
-      //  setLon(result.lon);
+
        await console.log("data : " , data);       
  }
-  
 
- const handleAddressSelect = (item) => {
-  setLat(item.lat);
-  setLon(item.lon);
-};
 
     return ( 
-         <>
+         <div id='father'>
     <form noValidate onSubmit={handleSubmit(save)}>
 
        <input type="text"{...register ( "name", { required : 'שדה שם הוא שדה חובה'})} id="nameInput" placeholder="enter name"></input> 
@@ -50,10 +41,22 @@ function Form() {
        <input
         type="text"
          {...register ( "adress", { required : 'שדה כתובת הוא שדה חובה'  })}
-         onChange={ChangeAdress}  
+        
          id ="adressInput"
          list="options"
-          placeholder="adress">
+          placeholder="adress"
+          onChange={ChangeAdress}  
+          onSelect={(e) => {
+            const selectedValue = e.target.value;
+            const selectedItem = data.find(itemm => itemm.display_name === selectedValue);
+            if(selectedItem){
+              setLat(selectedItem.lat);
+              setLon(selectedItem.lon);
+              console.log("lat: ", selectedItem.lat,", lon: ", selectedItem.lon);
+              
+            }
+          }}
+        >
             </input> 
        {errors.adress && <div className="error">{errors.adress.message} </div>}
 
@@ -63,15 +66,6 @@ function Form() {
           (item, index) => ( 
             <option key={item.osm_id + index} 
             value = {item.display_name}
-            onClick={ () => { 
-                          debugger;
-                            setLat(item.lat),
-                              setLon(item.lon)  ,
-                               console.log("lat: ", item.lat, "lon : ",item.lon)
-                              
-                           }}
-                        
-
             >
               {item.display_name}
               </option>
@@ -110,10 +104,11 @@ function Form() {
        <input type="submit" id="submitButton" value={"save"}/>
 
     </form>
-    <Map lat={lat} lon={lon}></Map>
+    <Map key = {`${lat}-${lon}`} lat={lat} lon={lon} ></Map>
 
-    </>
+    </div>
     );
 }
 
 export default Form;
+

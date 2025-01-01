@@ -4,10 +4,10 @@
 
 .leaflet-container {
     height: 60vh; 
-    width: 25vw;
-}
-
-.leaflet-container:hover{
-    height: 70vh;
+    width: 26vw;
+    border: rgb(86, 158, 247) 5px solid;
+    border-radius: 10%; 
+    margin-right: 8vw;
+    margin-top: 11vh;
 }
 

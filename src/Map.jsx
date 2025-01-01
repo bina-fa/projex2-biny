@@ -1,15 +1,13 @@
-import { useState } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'
 
 import './css/map.css'
 
 function Map(props) {
-// 
+
     const {lat} = props;
     const {lon} = props;
 
-    // let [ mapSrc, setMapSrc] = useState();
     return ( <>
 
       <MapContainer center={[lat, lon]} zoom={13} scrollWheelZoom={true}>
