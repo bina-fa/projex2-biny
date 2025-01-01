@@ -1,3 +1,13 @@
-TileLayer{
+.TileLayer{
     height: 20vh;
 }
+
+.leaflet-container {
+    height: 60vh; 
+    width: 25vw;
+}
+
+.leaflet-container:hover{
+    height: 70vh;
+}
+

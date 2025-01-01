@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -7,45 +6,37 @@ import "./css/form.css"
 
 function Form() {
 
-
    let { register, reset, handleSubmit, formState: { errors, isValid }} = useForm();
    let [ query, setQuery ] = useState();
    let [ data, setData] = useState([{}]);
-   let [ lat, setLat] = useState(51.505);
-   let [lon, setLon] = useState(-0.09);
-   
+   let [ lat, setLat] = useState(31.80461649366907);
+   let [ lon, setLon] = useState(34.66327724630701);
+ 
  function save(){
     reset()
  }
- 
+
+
   const ChangeAdress = async(e) => {
    console.log("go in on change");
-   console.log( e.target.value );
-   setQuery(e.target.value);
+   const {value} = e.target;
+   console.log( value );
+   setQuery(value);
 
-  //  fetch( `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5` )//איך ניגשים לתוך המערך שנמצא באובייקט promise
-  //  .then( 
-  //      (res) => {res = res.json();
-  //        console.log(res);
-  //        setdata(res);
-  //        console.log("addressArray", res.arrayBuffer)
-  //        console.log("data: ", data);
-  //        const addressArray = res.data; 
-  //        console.log("addressArray", addressArray);
-
-  //      })
-     
-       const response = await fetch( ` https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5`)
+       const response = await fetch( `https://nominatim.openstreetmap.org/search?format=json&q=${value}&limit=5 `)
        const res = await response.json();
        console.log("res: " , res);
-       await setData(res);
-       await setLat(data.lat0);
-       await setLon(data.lon)
-       console.log("data : " , data);// משהו השתבש
-      //  <Map lat={data.lat} lon={data.lon}></Map>
-       
+       setData(res);
+      //  setLat(result.lat);
+      //  setLon(result.lon);
+       await console.log("data : " , data);       
  }
   
+
+ const handleAddressSelect = (item) => {
+  setLat(item.lat);
+  setLon(item.lon);
+};
 
     return ( 
          <>
@@ -70,11 +61,17 @@ function Form() {
        <datalist id = "options">
         {data.map(
           (item, index) => ( 
-            <option key={index} 
+            <option key={item.osm_id + index} 
             value = {item.display_name}
-            //  onClick={ updateMap ((item)=>(
-            //   setPoints([item.lat, item.lon])
-            // ))}
+            onClick={ () => { 
+                          debugger;
+                            setLat(item.lat),
+                              setLon(item.lon)  ,
+                               console.log("lat: ", item.lat, "lon : ",item.lon)
+                              
+                           }}
+                        
+
             >
               {item.display_name}
               </option>
@@ -86,7 +83,7 @@ function Form() {
 
        <input type="email"
          {...register("email", {
-         required: true, message: 'שדה אימייל הוא שדה חובה',
+         required : 'שדה אימייל הוא שדה חובה',
               pattern: {
                 value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                 message: 'פורמט אימייל לא נכון'
@@ -120,4 +117,3 @@ function Form() {
 }
 
 export default Form;
-// 0556790770
