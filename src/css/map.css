@@ -1,7 +1,4 @@
-.TileLayer{
-    height: 20vh;
-}
-
+/* עיצוב למפה */
 .leaflet-container {
     height: 60vh; 
     width: 26vw;

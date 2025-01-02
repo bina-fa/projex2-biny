@@ -1,3 +1,4 @@
+/* גרמתי לבנים של הדיב הזה לעמוד בשורה ולא בעמודה */
 #father{
 
     /* background-color: rgb(246, 246, 246);  */
@@ -5,6 +6,8 @@
     flex-direction: row;
 
 }
+
+/*  :עיצוב כלללי לטופס : העמדת הילדים שלו בצורת עמודה ומרכוזם, הוספת גבול עגול וצל*/
 form{
     display: flex;
     justify-content: center;
@@ -14,46 +17,46 @@ form{
     margin: 20px auto;
     padding: 20px;
     border-radius: 8px;
-   
     box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15), 0px 8px 24px rgba(0, 0, 0, 0.1);
-
     background-color: white;
 }
 
+/* עיצוב כללי לכפתור השליחה */
 #submitButton{
-    width: 10vw;
+    width: 13vw;
     height: 6vh;
     background-color: rgb(62, 241, 62); 
     color: white;
 
 }
+
+/* עיצוב כללי לכל הינפוטס העליוניים */
 #nameInput, #phoneInput, #numRoomsInput, #emailInput{
    
     width: 18vw;
     height: 7vh;
-
     font-size: larger;
     color: rgb(34, 34, 34);
     border: rgb(62, 241, 62) 3px solid;
     background-color:white; 
-
     margin-bottom: 20px;
-    resize: vertical;
 }
 
-
+/* ובעת מעבר עליהם */
 input:hover, #nameInput:hover, #phoneInput:hover, #numRoomsInput:hover, #emailInput:hover{
     
     box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.1);
 
 }
 
+/* עיצוב לינפוטס בזמן הפוקוס עליהם */
 #adressInput:focus, #nameInput:focus, #phoneInput:focus, #numRoomsInput:focus, #emailInput:focus{
     border: rgb(62, 241, 62) 4px solid;
     outline: none;
     box-shadow: none;
 }
 
+/* עיצוב לינפוט adress */
 #adressInput{
    
     width: 18vw;
@@ -66,23 +69,27 @@ input:hover, #nameInput:hover, #phoneInput:hover, #numRoomsInput:hover, #emailIn
 
 }
 
+/*form- עיצוב להודעות השגיאות על ה  */
 .error{
     width: 11vw;
     height: 7vh;
     color: red;
 }
 
+/*chexboxes עיצוב  */
 #internet, #kitchen, #coffeeMachine {
     width: 2vw;
     height: 2vh;
     background-color: grey;
 }
 
+
 label {
     padding: 12px 12px 12px 0;
     display: inline-block;
     color: rgb(51, 50, 50);
   }
+
 
 #options{
     position: absolute;
@@ -91,10 +98,14 @@ label {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+/* עיצוב לינפוטס התחתונים הקטנים */
 #status, #numRooms, #distance{
     margin: 4px;
     border:  rgb(62, 241, 62) 1px solid;
 }
+
+/* ובזמן פוקוס */
 #status:focus, #numRooms:focus, #distance:focus{
     outline: none;
     border:  rgb(62, 241, 62) 2px solid;
